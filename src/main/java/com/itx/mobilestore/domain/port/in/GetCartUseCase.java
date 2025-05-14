@@ -11,4 +11,6 @@ public interface GetCartUseCase {
 
   int removeFromCart(String id, int colorCode, int storageCode);
 
+  int removeOneFromCart(String id, int colorCode, int storageCode);
+
 }

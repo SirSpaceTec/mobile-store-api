@@ -1,6 +1,7 @@
 package com.itx.mobilestore.application.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -25,8 +26,16 @@ public class CartService implements AddToCartUseCase, GetCartUseCase {
   public int addToCart(String id, int colorCode, int storageCode) {
     Product product = productRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    for (CartItem item : cart) {
+      if (item.getProduct().getId().equals(id) &&
+          item.getColorCode() == colorCode &&
+          item.getStorageCode() == storageCode) {
+        item.setCantidad(item.getCantidad() + 1);
+        return cart.stream().mapToInt(CartItem::getCantidad).sum();
+      }
+    }
     cart.add(new CartItem(product, colorCode, storageCode));
-    return cart.size();
+    return cart.stream().mapToInt(CartItem::getCantidad).sum();
   }
 
   @Override
@@ -51,6 +60,24 @@ public class CartService implements AddToCartUseCase, GetCartUseCase {
       }
     }
     return cart.size();
+  }
+
+  @Override
+  public int removeOneFromCart(String id, int colorCode, int storageCode) {
+    for (Iterator<CartItem> it = cart.iterator(); it.hasNext();) {
+      CartItem item = it.next();
+      if (item.getProduct().getId().equals(id)
+          && item.getColorCode() == colorCode
+          && item.getStorageCode() == storageCode) {
+        if (item.getCantidad() > 1) {
+          item.setCantidad(item.getCantidad() - 1);
+        } else {
+          it.remove();
+        }
+        break;
+      }
+    }
+    return cart.stream().mapToInt(CartItem::getCantidad).sum();
   }
 
 }

@@ -47,6 +47,12 @@ public class CartController {
     return new CartResponseDto(count);
   }
 
+  @DeleteMapping("/one")
+  public CartResponseDto removeOne(@RequestBody CartRequestDto request) {
+    int count = getCartUseCase.removeOneFromCart(request.getId(), request.getColorCode(), request.getStorageCode());
+    return new CartResponseDto(count);
+  }
+
   @DeleteMapping("/all")
   public CartResponseDto clearCart() {
     getCartUseCase.clearCart();

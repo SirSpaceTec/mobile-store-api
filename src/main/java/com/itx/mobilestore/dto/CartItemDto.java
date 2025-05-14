@@ -7,14 +7,17 @@ public class CartItemDto {
   private double precio;
   private int colorCode;
   private int storageCode;
+  private int cantidad;
 
-  public CartItemDto(String id, String marca, String modelo, double precio, int colorCode, int storageCode) {
+  public CartItemDto(String id, String marca, String modelo, double precio, int colorCode, int storageCode,
+      int cantidad) {
     this.id = id;
     this.marca = marca;
     this.modelo = modelo;
     this.precio = precio;
     this.colorCode = colorCode;
     this.storageCode = storageCode;
+    this.cantidad = cantidad;
   }
 
   public String getId() {
@@ -63,6 +66,14 @@ public class CartItemDto {
 
   public void setStorageCode(int storageCode) {
     this.storageCode = storageCode;
+  }
+
+  public int getCantidad() {
+    return cantidad;
+  }
+
+  public void setCantidad(int cantidad) {
+    this.cantidad = cantidad;
   }
 
 }

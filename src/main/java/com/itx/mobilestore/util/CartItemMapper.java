@@ -13,6 +13,7 @@ public class CartItemMapper {
         p.getModelo(),
         p.getPrecio(),
         item.getColorCode(),
-        item.getStorageCode());
+        item.getStorageCode(),
+        item.getCantidad());
   }
 }
