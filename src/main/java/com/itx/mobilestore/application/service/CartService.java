@@ -47,7 +47,7 @@ public class CartService implements AddToCartUseCase, GetCartUseCase {
           item.getColorCode() == colorCode &&
           item.getStorageCode() == storageCode) {
         cart.remove(i);
-        break; // 🔁 Detener tras la primera eliminación
+        break;
       }
     }
     return cart.size();
